@@ -1,164 +1,102 @@
-# Phishing Email Detector with Automated Quarantine and Alert System
+# Phishing Email Detector with Quarantine and Alerts
 
-This project is an automated tool for detecting, quarantining, and alerting about suspicious phishing emails. It integrates with the VirusTotal API to scan URLs found in emails, flags potential phishing threats, quarantines them, and notifies the security team.
-
----
-
-## Table of Contents
-
-- [Features](#features)
-
-- [Requirements](#requirements)
-
-- [Setup Instructions](#setup-instructions)
-
-- [Configuration](#configuration)
-
-- [Usage](#usage)
-
-- [Project Files](#project-files)
-
-- [Disclaimer](#disclaimer)
-
-- [License](#license)
+This project is a Python-based tool to detect suspicious phishing emails, quarantine them, and notify the security team. It integrates with the VirusTotal API to analyze URLs found in emails and helps organizations stay protected from phishing attacks.
 
 ---
 
 ## Features
 
-- **Automated Email Scanning**: Fetches unread emails and scans their content for suspicious URLs.
-
-- **Phishing Detection**: Uses VirusTotal API to check for malicious URLs in email bodies.
-
-- **Email Quarantine**: Flags and moves potentially harmful emails to quarantine.
-
-- **Alert System**: Sends an alert email to notify the security team of any phishing attempt.
-
-- **Logging**: Logs flagged emails for record-keeping and review.
+* **Automatic Email Scanning** – Fetches unread emails from an inbox.
+* **Phishing Detection** – Extracts URLs from emails and checks them with VirusTotal.
+* **Email Quarantine** – Moves suspicious emails to a quarantine folder.
+* **Alert System** – Sends an alert email to the security team when a phishing attempt is detected.
+* **Logging** – Records details of flagged emails for future review.
 
 ---
 
 ## Requirements
 
-- Python 3.6+
+* Python 3.6+
+* Packages: `requests`, `imaplib`, `email`, `re`, `base64`
+* A VirusTotal API key
 
-- Required packages:
+Install required packages with:
 
-- `requests` -- for API calls
-
-- `imaplib` and `email` -- for email handling
-
-- `re` and `base64` -- for URL extraction and encoding
-
-- A VirusTotal API key for URL analysis
+```bash
+pip install requests
+```
 
 ---
 
 ## Setup Instructions
 
-1\. **Clone the Repository**:
+1. **Clone the Repository**
 
-```bash
+   ```bash
+   git clone https://github.com/yourusername/email-phishing-detector.git
+   cd email-phishing-detector
+   ```
 
-    git clone https://github.com/jagdishtripathy/Email-phishing-detector.git
-    cd Email-phishing-detector
-```
+2. **(Optional) Create a Virtual Environment**
 
-2\. **Create a Virtual Environment** (optional but recommended):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Windows: venv\Scripts\activate
+   ```
 
-```bash
-    python3 -m venv myenv
-    source myenv/bin/activate  # On Windows: myenv\Scripts\activate
-```
+3. **Configure Email and VirusTotal API**
 
-3\. **Install Required Packages**:
+   * Open `email_handler.py` and update:
 
-```bash
-    pip install requests
+     ```python
+     EMAIL_ADDRESS = 'your_email@example.com'
+     EMAIL_PASSWORD = 'your_password'
+     IMAP_SERVER = 'imap.example.com'
+     ```
+   * Open `phishing_detection.py` and update:
 
-```
-
-4\. **Configure Email and VirusTotal API**:
-
-   Update `email_handler.py`:
-
-```python
-
-    EMAIL_ADDRESS = 'your_email@example.com'
-    EMAIL_PASSWORD = 'your_password'
-    IMAP_SERVER = 'imap.example.com'
-
-```
-
-   Update `phishing_detection.py`:
-
-```python
-
-    api_key = 'your_virustotal_api_key'
-
-```
-
----
-
-## Configuration
-
-In `email_handler.py`, set:
-
-- `EMAIL_ADDRESS`: Your email address
-
-- `EMAIL_PASSWORD`: Your email account password or app-specific password
-
-- `IMAP_SERVER`: IMAP server address (e.g., `imap.gmail.com` for Gmail)
-
-In `phishing_detection.py`, set:
-
-- `api_key`: Your VirusTotal API key
+     ```python
+     api_key = 'your_virustotal_api_key'
+     ```
 
 ---
 
 ## Usage
 
-To run the project, execute:
+Run the program:
 
 ```bash
-
 python main.py
 ```
-The program will:
 
-1.  Connect to the email inbox and fetch unread emails.
+The script will:
 
-2.  Check each email's content for URLs and scan them using VirusTotal.
+1. Connect to your email inbox and fetch unread messages.
+2. Scan each email for URLs.
+3. Use VirusTotal to check if URLs are malicious.
+4. Quarantine flagged emails.
+5. Send an alert to the security team.
+6. Log the details.
 
-3.  Quarantine flagged phishing emails.
+---
 
-4.  Send an alert email to the security team.
+## Project Files
 
-5.  Log details of flagged emails.
+* `main.py` – Entry point for running the system
+* `email_handler.py` – Handles connecting to email and fetching messages
+* `phishing_detection.py` – Uses VirusTotal API to scan URLs
+* `quarantine.py` – Moves flagged emails into quarantine
+* `alert.py` – Sends alert notifications
+* `logger.py` – Records details of flagged emails
 
-* * * * *
+---
 
-Project Files
--------------
+## Disclaimer
 
--   `main.py` -- Orchestrates the overall detection process
+This tool is for educational and security awareness purposes. **Only use it with email accounts you are authorized to monitor.** Unauthorized use may be illegal or against organizational policies.
 
--   `email_handler.py` -- Handles email connection and fetching
+---
 
--   `phishing_detection.py` -- Uses VirusTotal to scan URLs
+## License
 
--   `quarantine.py` -- Moves flagged emails to quarantine
-
--   `alert.py` -- Sends alert emails
-
--   `logger.py` -- Logs flagged email details
-
-* * * * *
-
-Disclaimer
-----------
-
-This tool is intended for educational and security awareness purposes only. Ensure you have appropriate permission before scanning any email account. Unauthorized usage may violate legal or ethical guidelines.
-
-* * * * *
-
+This project is licensed under the MIT License. See the `LICENSE` file for details.
